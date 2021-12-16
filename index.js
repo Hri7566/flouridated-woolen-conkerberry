@@ -22,9 +22,11 @@ const express = require('express');
 
 const app = express();
 
+// TODO move to express file
+
 app.get('/', (req, res) => {
     let obj = bot.getPublicData();
-    Object.assign(obj, {m: 'bot'});
+    Object.assign(obj, {m: 'bot_data'});
     res.send(JSON.stringify(obj));
 });
 

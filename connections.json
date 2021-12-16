@@ -1,0 +1,16 @@
+{
+    "wss://mppclone.com:8443": [
+        {
+            "_id": "✧𝓓𝓔𝓥 𝓡𝓸𝓸𝓶✧",
+            "name": "dev room"
+        },
+        {
+            "_id": "test/fishing",
+            "name": "test/fishing"
+        },
+        {
+            "_id": "lobby",
+            "name": "lobby"
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+2021/12/16-00:55:47.204 5ff0 Recovering log #360
+2021/12/16-00:55:47.205 5ff0 Level-0 table #362: started
+2021/12/16-00:55:47.208 5ff0 Level-0 table #362: 12068 bytes OK
+2021/12/16-00:55:47.212 5ff0 Delete type=0 #360
+2021/12/16-00:55:47.213 5ff0 Delete type=3 #358

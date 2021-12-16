@@ -15,7 +15,6 @@ let sendChat = (str) => {
 
 // sendChat('hello');
 
-
 window.onload = () => {
     $('#chat-enter').on('click', evt => {
         let txt = $('#chat-box').val();
