@@ -110,6 +110,26 @@ class Bot extends EventEmitter {
         this.bindEventListeners();
         this.startClientIfNotStarted() ? this.bindDefaultClientListeners() : console.log(this.error('WebSocket not supported'));
 
+        this.currentPoll = {
+            question: 'Should ModernMPP style be released?',
+            options: ['Yes', 'No']
+        }
+
+        // database poll count create
+        Database.get('poll_yes').then(res => {
+           
+            Database.set('poll_yes', JSON.stringify([]));
+        }, err => {
+            Database.set('poll_yes', JSON.stringify([]));
+        });
+
+        Database.get('poll_no').then(res => {
+
+            Database.set('poll_no', JSON.stringify([]));
+        }, err => {
+            Database.set('poll_no', JSON.stringify([]));
+        });
+
         // Database.modifyUser("2ffc3744fbc1bc6c6ef4a330", user => {
         //     User.removePermissionGroup(user, 'admin');
         // });
@@ -337,6 +357,32 @@ class Bot extends EventEmitter {
             keyvals = keyvals.substr(0, keyvals.length - 2).trim();
             return `argv: ${args} | opt: ${keyvals}`;
         }, true));
+
+        gp.addCommand(new Command(['poll'],'$PREFIXpoll (yes/no)', 0, (msg, bot, cl) => {
+            if (!msg.args[1]) {
+                Database.get('poll_yes').then(yes => {
+                    Database.get('poll_no').then(no => {
+                        cl.sendChat(`Poll: ${this.currentPoll.question} | ${this.currentPoll.options[0]}: ${JSON.parse(yes).length} / ${this.currentPoll.options[1]}: ${JSON.parse(no).length}`);
+                    });
+                });
+            } else {
+                if (this.currentPoll.options[0].toLowerCase().includes(msg.args[1].toLowerCase())) {
+                    Database.get('poll_yes').then(yes => {
+                        let arr = JSON.parse(yes);
+                        if (arr.indexOf(msg.p._id) !== -1) arr.push(msg.p._id);
+                        Database.set('poll_yes', JSON.stringify(arr));
+                        cl.sendChat(`Your answer (${this.currentPoll.options[0]}) was counted.`);
+                    });
+                } else if (this.currentPoll.options[1].toLowerCase().includes(msg.args[1].toLowerCase())) {
+                    Database.get('poll_no').then(no => {
+                        let arr = JSON.parse(no);
+                        if (arr.indexOf(msg.p._id) !== -1) arr.push(msg.p._id);
+                        Database.set('poll_no', JSON.stringify(arr));
+                        cl.sendChat(`Your answer (${this.currentPoll.options[1]}) was counted.`);
+                    });
+                }
+            }
+        }));
 
         gp.addCommand(new Command(['data'], '$PREFIXdata', 0, msg => {
             let out = `${msg.p._id}: { `;
