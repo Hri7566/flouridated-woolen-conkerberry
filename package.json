@@ -8,7 +8,7 @@
     "express": "^4.17.1",
     "level": "^7.0.1",
     "midi-player-js": "https://github.com/aeiou879/MidiPlayerJS.git",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "node-fetch": "2",
     "redis": "^4.0.0",
     "ws": "^8.2.3",
